@@ -1,25 +1,26 @@
 import React from 'react';
-import logo from './logo.svg';
+import { BrowserRouter, Route, Redirect, Switch } from 'react-router-dom';
+import Academy from './pages/Academy'
 import './App.css';
+import { dailyAverageBatteryConsumption } from './helpers/dailyAverageBatteryConsumption'
+import Battery from './pages/Battery';
+import MainNavigation from './components/MainNavigation'
 
 function App() {
+  console.log(dailyAverageBatteryConsumption())
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+    <React.Fragment>
+      <MainNavigation/>
+        <main className="main-content">
+          <Switch>
+            <Redirect from="/" to="/battery" exact />
+            <Route path="/academy" component={Academy} />
+            <Route path="/battery" component={Battery} />
+          </Switch>
+        </main>
+    </React.Fragment>
+  </BrowserRouter>
   );
 }
 
